@@ -78,18 +78,49 @@ platform.Game.prototype = {
   },
   gameOver: function(){
         // When the paus button is pressed, we pause the game
-        var key = Math.random(10000);
-        var data = {
-                score: this.score
-              };
-        lawnchair.save({key: key, dataList: data});
-        platform.game.paused = true;
-        console.log(this.score);
-        // Then add the menu
-        menu = platform.game.add.sprite(platform.game.width/2, platform.game.height/2, 'menu');
-        menu.anchor.setTo(0.5, 0.5);
+          var key = Math.random(10000);
+          console.log(window.localStorage.getItem("scoresObj"));
+          if (window.localStorage.getItem("scoresObj")){
+            var scores = JSON.parse(window.localStorage.getItem("scoresObj"));
+            console.log(scores);
+            var length = Object.keys(scores);
+            var gameNum = +length + 1;
+            var score = this.score;
+            scores[gameNum] = score;
 
-        platform.game.input.onDown.add(this.unpause, self);
+            window.localStorage.setItem("scoresObj", JSON.stringify(scores));
+            console.log(JSON.parse(window.localStorage.getItem("scoresObj")));
+          } else {
+              window.localStorage.setItem("scoresObj", JSON.stringify({1: this.score}));
+          }
+
+          var data = JSON.stringify({
+            "name": "Testing from app!",
+            "score": this.score
+          });
+
+          var xhr = new XMLHttpRequest();
+          xhr.withCredentials = true;
+
+          xhr.addEventListener("readystatechange", function () {
+            if (this.readyState === 4) {
+              console.log(this.responseText);
+            }
+          });
+
+          xhr.open("POST", "http://localhost:5000/score");
+          xhr.setRequestHeader("content-type", "application/json");
+          xhr.setRequestHeader("cache-control", "no-cache");
+
+          xhr.send(data);
+
+          platform.game.paused = true;
+          console.log(this.score);
+          // Then add the menu
+          menu = platform.game.add.sprite(platform.game.width/2, platform.game.height/2, 'menu');
+          menu.anchor.setTo(0.5, 0.5);
+
+          platform.game.input.onDown.add(this.unpause, self);
 
 
   },

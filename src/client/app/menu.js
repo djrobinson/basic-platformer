@@ -2,7 +2,7 @@ var platform = platform || {};
 
 platform.Menu = function() {};
 
-var lawnchair = new Lawnchair({table:'localScores', adaptor:'webkit'}, function(){
+var lawnchair = new Lawnchair({table:'localScores', adaptor:'window-name'}, function(){
     // Lawnchair setup!
 });
 
