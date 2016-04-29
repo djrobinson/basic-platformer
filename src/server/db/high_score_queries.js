@@ -7,6 +7,8 @@ function Scores() {
 module.exports = {
   getHighScores: function(){
     return Scores().select()
+                   .where('score', '!=', 0)
+                   .limit(10)
                    .orderBy('score', 'desc');
   },
   addScore: function(input){

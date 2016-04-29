@@ -95,7 +95,7 @@ platform.Game.prototype = {
           }
 
           var data = JSON.stringify({
-            "name": "Testing from app!",
+            "name": "Danny Robinson",
             "score": this.score
           });
 
@@ -108,7 +108,7 @@ platform.Game.prototype = {
             }
           });
 
-          xhr.open("POST", "http://localhost:5000/score");
+          xhr.open("POST", "https://pirate-runner.herokuapp.com/score");
           xhr.setRequestHeader("content-type", "application/json");
           xhr.setRequestHeader("cache-control", "no-cache");
 

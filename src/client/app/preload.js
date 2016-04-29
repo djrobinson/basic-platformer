@@ -12,6 +12,7 @@ platform.Preload.prototype = {
         this.load.image('jump-button', 'app/assets/jump-Button.png');
         this.load.image('flip-button', 'app/assets/flip-Button.png');
         this.load.image('background', 'app/assets/pirate.jpg');
+        this.load.image('game-over', 'app/assets/game_over.jpg');
       },
     create: function() {
         this.state.start('Menu');
